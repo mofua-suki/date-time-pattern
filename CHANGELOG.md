@@ -1,3 +1,7 @@
+## 0.1.4
+
+- Clarify in both READMEs how to reproduce time-only parsing in UTC and local time, and when a nonexistent local time throws `FormatException`.
+
 ## 0.1.3
 
 - Document patterns that end with a literal separator in both README editions.
