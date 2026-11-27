@@ -1,6 +1,16 @@
 # Date Time Pattern
 
+[日本語](https://github.com/mofua-suki/date-time-pattern/blob/main/README.ja.md) · [pub.dev](https://pub.dev/packages/date_time_pattern)
+
 Build fixed-width date and time patterns with Dart's type system. Each step exposes the fields and separators that can follow it. Use the same pattern to format a `DateTime` and parse its text representation.
+
+## Installation
+
+Requires Dart SDK 3.14.0 or later, below 4.0.0.
+
+```sh
+dart pub add date_time_pattern
+```
 
 ```dart
 import 'package:date_time_pattern/date_time_pattern.dart';
@@ -70,3 +80,15 @@ trip. `SSS` retains milliseconds and omits microseconds.
 `now()` formats the current local time. Pass a clock for reproducible output,
 as in `clockTime.now(clock: () => instant)`. If the supplied clock returns a
 UTC `DateTime`, the result uses its UTC fields.
+
+## Development
+
+Run these commands from the repository root.
+
+```sh
+dart pub get
+dart analyze
+dart test
+```
+
+Run the example with `dart run example/date_time_pattern_example.dart`.
