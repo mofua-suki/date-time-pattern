@@ -1,3 +1,7 @@
+## 0.1.3
+
+- Document patterns that end with a literal separator in both README editions.
+
 ## 0.1.2
 
 - Report times outside the Dart DateTime range as format errors.

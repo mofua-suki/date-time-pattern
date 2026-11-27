@@ -26,7 +26,10 @@ final meeting = clockTime.parse('09:30', referenceDate: DateTime(2028, 2, 29));
 ## Build a pattern
 
 Choose a chain in Dart code and reuse it to format or parse the same shape.
-Complete a field after adding a separator, for example `.hyphen.MM`.
+To separate two fields, append the second field after the separator, as in
+`yyyy.hyphen.MM`. A separator can also be the last part of a pattern.
+For example, `yyyy.hyphen` formats a date in 2028 as `2028-` and parses
+`2028-` as January 1, 2028.
 
 | Pattern | Example text |
 | --- | --- |
