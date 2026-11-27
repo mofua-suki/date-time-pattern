@@ -1,3 +1,7 @@
+## 0.1.2
+
+- Report times outside the Dart DateTime range as format errors.
+
 ## 0.1.1
 
 - Add a Japanese README and document the supported Dart SDK in both languages.

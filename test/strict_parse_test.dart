@@ -60,6 +60,20 @@ void main() {
     expect(utc, DateTime.utc(2028, 2, 29, 9, 30, 45));
   });
 
+  test('rejects a time beyond the DateTime range on the reference day', () {
+    final reference = DateTime.utc(275760, 9, 13);
+    expect(
+      () => HH.colon.mm.parse('00:01', referenceDate: reference, utc: true),
+      throwsA(
+        isA<FormatException>().having((error) => error.source, 'source', '00:01'),
+      ),
+    );
+    expect(
+      HH.colon.mm.parse('00:00', referenceDate: reference, utc: true),
+      reference,
+    );
+  });
+
   test('ignores the reference date when the pattern itself has a date', () {
     final result = yyyy.hyphen.MM.parse(
       '2028-02',

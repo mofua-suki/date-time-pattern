@@ -69,6 +69,8 @@ try {
   reference date, it uses today in the result zone. For reproducible tests,
   pass both `referenceDate` and the intended `utc` value.
 
+A time on the reference day outside the range supported by Dart’s `DateTime` also throws `FormatException`.
+
 ## Format a value
 
 `format()` reads the fields of the supplied `DateTime` as-is. Call `.toUtc()`

@@ -316,15 +316,12 @@ DateTime _parse(
   millisecond ??= 0;
 
   final createDateTime = utc ? DateTime.utc : DateTime.new;
-  final result = createDateTime(
-    year,
-    month,
-    day,
-    hour,
-    minute,
-    second,
-    millisecond,
-  );
+  final DateTime result;
+  try {
+    result = createDateTime(year, month, day, hour, minute, second, millisecond);
+  } on ArgumentError {
+    throw FormatException("Date or time is outside the DateTime range", input);
+  }
   if (result.year != year ||
       result.month != month ||
       result.day != day ||
