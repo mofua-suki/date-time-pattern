@@ -20,7 +20,11 @@ final instant = timestamp.parse('2028-02-29T09:30:45.123', utc: true);
 final text = timestamp.format(instant); // 2028-02-29T09:30:45.123
 
 final clockTime = HH.colon.mm;
-final meeting = clockTime.parse('09:30', referenceDate: DateTime(2028, 2, 29));
+final meeting = clockTime.parse(
+  '09:30',
+  referenceDate: DateTime.utc(2028, 2, 29),
+  utc: true,
+);
 ```
 
 ## パターンを組み立てる
@@ -53,7 +57,9 @@ try {
 
 - 年と月だけなら日は1日になり、省略した時刻フィールドはゼロになります。
 - `parse()` は既定でローカル時刻を返します。UTC として解釈するには `utc: true` を指定します。区切り文字の `T` はタイムゾーンに影響しません。
-- 時刻だけのパターンでは、`referenceDate` の年月日をそのまま使います。結果のタイムゾーンと異なる場合も同じです。省略すると結果のタイムゾーンでの今日の日付を使います。再現可能なテストには `referenceDate` と `utc` の両方を指定してください。
+- 時刻だけのパターンでは、`referenceDate` の年月日をそのまま使います。結果のタイムゾーンと異なる場合も同じです。省略すると結果のタイムゾーンでの今日の日付を使います。
+- タイムゾーンの異なる環境でも同じ結果を得るテストでは、固定した `referenceDate` と `utc: true` を指定します。`utc: false` では、基準日を固定しても結果は環境のローカルタイムゾーンに依存します。ローカル時刻の解析結果を再現するには、環境のタイムゾーンも固定してください。
+- 夏時間への切り替えで時計が進む場合など、その日に指定したローカル時刻が存在しなければ、`parse()` は `FormatException` を投げます。
 
 基準日と時刻を組み合わせた結果が Dart の `DateTime` の表現範囲を超える場合も、`FormatException` になります。
 

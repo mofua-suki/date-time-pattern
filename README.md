@@ -20,7 +20,11 @@ final instant = timestamp.parse('2028-02-29T09:30:45.123', utc: true);
 final text = timestamp.format(instant); // 2028-02-29T09:30:45.123
 
 final clockTime = HH.colon.mm;
-final meeting = clockTime.parse('09:30', referenceDate: DateTime(2028, 2, 29));
+final meeting = clockTime.parse(
+  '09:30',
+  referenceDate: DateTime.utc(2028, 2, 29),
+  utc: true,
+);
 ```
 
 ## Build a pattern
@@ -69,8 +73,14 @@ try {
   interpret the text as UTC. The `T` separator does not select a zone.
 - A time-only pattern takes the calendar fields from `referenceDate` as
   supplied, even if its zone differs from the result zone. Without a
-  reference date, it uses today in the result zone. For reproducible tests,
-  pass both `referenceDate` and the intended `utc` value.
+  reference date, it uses today in the result zone.
+- For tests that give the same result across time zones, pass a fixed
+  `referenceDate` and `utc: true`. With `utc: false`, the result depends on
+  the environment’s local time zone even with a fixed reference date. To
+  reproduce a local result, fix the environment’s time zone as well.
+- If the requested local time does not exist on that date, for example
+  because clocks move forward for daylight saving time, `parse()` throws
+  `FormatException`.
 
 A time on the reference day outside the range supported by Dart’s `DateTime` also throws `FormatException`.
 
