@@ -21,6 +21,12 @@ void main() {
     }
   });
 
+  test('supports a separator at the end of a date pattern', () {
+    final yearWithHyphen = yyyy.hyphen;
+    expect(yearWithHyphen.format(DateTime.utc(2028, 2, 29)), '2028-');
+    expect(yearWithHyphen.parse('2028-', utc: true), DateTime.utc(2028));
+  });
+
   test('rejects times that roll over when constructing a DateTime', () {
     for (final input in ['24:00:00', '09:60:00', '09:00:60']) {
       expect(
